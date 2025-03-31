@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import openai
-import datetime
 import os
 
 app = Flask(__name__)
@@ -20,11 +19,7 @@ def webhook():
         answer = response.choices[0].message.content
         return jsonify({"fulfillmentText": answer})
 
-    elif intent == "AskTime":
-        now = datetime.datetime.now().strftime("%H:%M:%S")
-        return jsonify({"fulfillmentText": f"Este ora {now}"})
-
-    return jsonify({"fulfillmentText": "Intentul nu este definit în webhook."})
+    return jsonify({"fulfillmentText": "Intentul nu este recunoscut de webhook."})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
